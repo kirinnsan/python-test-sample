@@ -49,6 +49,13 @@ def test_count():
     assert task_number == 2
 
 
+def test_conftest_fixture(tasks_just_a_few):
+    for task in tasks_just_a_few:
+        tasks.add(task)
+
+    task_number = tasks.count()
+
+    assert task_number == 3
 
 
 def equivalent(t1, t2):

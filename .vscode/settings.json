@@ -1,7 +1,9 @@
 {
   "python.testing.pytestArgs": [
-    "chapter",
-    "-v"
+    "chapter/ch3",
+    "-v",
+    "--setup-show" // どのフィクスチャがいつ実行されたか確認できる
+
   ],
   "python.testing.unittestEnabled": false,
   "python.testing.nosetestsEnabled": false,
