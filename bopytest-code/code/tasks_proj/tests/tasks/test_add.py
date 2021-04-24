@@ -34,3 +34,21 @@ def test_added_task_has_id_set(tasks_db):
 
     task_from_db = tasks.get(task_id=task_id)
     assert task_from_db.id == task_id
+
+
+# def test_unique_id(tasks_db):
+#     id_1 = tasks.unique_id()
+#     id_2 = tasks.unique_id()
+#     assert id_1 != id_2
+
+
+# @pytest.mark.xfail(tasks.__version__ < '0.2.0', reason='not supported until version')
+def test_unique_id_2(tasks_db):
+    ids = []
+    ids.append(tasks.add(Task('one')))
+    ids.append(tasks.add(Task('two')))
+    ids.append(tasks.add(Task('three')))
+
+    uid = tasks.unique_id()
+
+    assert uid not in ids

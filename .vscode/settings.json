@@ -2,10 +2,12 @@
   "python.testing.pytestArgs": [
     "chapter/ch3",
     "-v",
-    "--setup-show" // どのフィクスチャがいつ実行されたか確認できる
+    "-s",
+    // "--setup-show" // どのフィクスチャがいつ実行されたか確認できる
 
   ],
   "python.testing.unittestEnabled": false,
   "python.testing.nosetestsEnabled": false,
-  "python.testing.pytestEnabled": true
+  "python.testing.pytestEnabled": true,
+  "python.pythonPath": "C:\\Users\\hiros\\AppData\\Local\\Programs\\Python\\Python37\\python.exe"
 }

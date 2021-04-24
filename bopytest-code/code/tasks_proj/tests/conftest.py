@@ -13,19 +13,32 @@ sys.path.append(os.path.abspath(os.path.dirname(
     os.path.abspath(__file__)) + "/../src/"))
 
 
-@pytest.fixture()
-def tasks_db(tmpdir):
-    # セットアップ
-    tasks.start_tasks_db(str(tmpdir), 'tiny')
-
-    # テスト実行
+@pytest.fixture(scope='session')
+def task_db_session(tmpdir_factory):
+    # フィクスチャのセッションスコープで
+    # 一時ディレクトリとデータベース接続設定を実行
+    temp_dir = tmpdir_factory.mktemp('temp')
+    tasks.start_tasks_db(str(temp_dir), 'tiny')
     yield
-
-    # ティアーダウン
     tasks.stop_tasks_db()
 
 
 @pytest.fixture()
+def tasks_db(task_db_session):
+    # セットアップ
+    # tasks.start_tasks_db(str(tmpdir), 'tiny')
+
+    # テスト実行
+    # yield
+
+    # ティアーダウン
+    # tasks.stop_tasks_db()
+
+    # データベースを空にするのみ
+    tasks.delete_all()
+
+
+@pytest.fixture(scope='session')
 def tasks_just_a_few():
     return (
         Task('Write some code', 'Brian', True),
@@ -34,7 +47,7 @@ def tasks_just_a_few():
     )
 
 
-@pytest.fixture()
+@pytest.fixture(scope='session')
 def tasks_mult_per_owner():
     return (
         Task('Make cookie', 'Raphael'),
