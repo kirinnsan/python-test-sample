@@ -87,3 +87,19 @@ class TestSalary(unittest.TestCase):
 
         self.assertEqual(salary_price, 101)
         mock_rest.bonus_price.assert_called()
+
+    def test_mock_confirm(self):
+        test_mock = mock.Mock()
+        test_mock().foo(a=2, b=3)
+
+        test_mock.return_value.foo.assert_called_with(a=2, b=3)
+
+    # def test_get_max_salary(self):
+    #     max_salary_mock = mock.Mock()
+    #     res_mock = mock.Mock()
+    #     s = salary.Salary(year=2017)
+    #     max_salary_mock.return_value.last_three_salary_list.return_value.max_salary.return_value = res_mock
+    #     s.bonus_api = max_salary_mock
+
+    #     s.get_max_salary()
+    #     res_mock.assert_called_once()

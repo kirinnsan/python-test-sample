@@ -44,3 +44,12 @@ class MyClass:
         s3 = boto3.client('s3')
         s3.list_objects_v2(
             Bucket=bucket_str, Prefix=prefix, Delimiter='/')
+
+    def get_partition_values3(self, bucket_str: str, prefix: str, partition_column: str) -> set([str]):
+        print(
+            f"get all values for {partition_column} in s3://{bucket_str}/{prefix}")
+        s3 = boto3.client('s3')
+        result = s3.list_objects_v2(
+            Bucket=bucket_str, Prefix=prefix, Delimiter='/')
+        s3.upload_file(
+            Bucket=bucket_str, Prefix=result, Delimiter='/')

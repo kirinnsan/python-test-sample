@@ -7,6 +7,13 @@ class ThirdPartryBonusRestAPi:
         r = request.get('http://localhost/bonus', params={'year': year})
         return r.json()['price']
 
+    def last_three_salary_list(self):
+        return self
+
+    def max_salary(self, salary_list):
+        return max(salary_list)
+
+
 class Salary:
     def __init__(self, base=100, year=2017):
         self.bonus_api = ThirdPartryBonusRestAPi()
@@ -21,6 +28,10 @@ class Salary:
         except ConnectionRefusedError:
             bonus = 0
         return self.base + bonus
+
+    def get_max_salary(self):
+        max_salary = self.bonus_api.last_three_salary_list().max_salary([90, 80, 30])
+        return max_salary
 
     def calcuration_bonus(self):
         result = self.calcuration_heavy_task()
