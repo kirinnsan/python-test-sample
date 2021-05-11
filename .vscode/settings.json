@@ -1,11 +1,12 @@
 {
   "python.testing.pytestArgs": [
-    "pytest-test",
-    "-v",
-    // "-s", // printも出力される
+    "mock-test",
+    "-v", // テストケースごとに PASSED/FAILED が表示してprintも出力
+    "--capture=no",
+    "-s", // printも出力される
     "-q",
-    "--cov=pytest-test", // pytest-covでカバレッジを出力
-    "--cov-report=html", // カバレッジをhtmlで出力
+    // "--cov=pytest-test", // pytest-covでカバレッジを出力
+    // "--cov-report=html", // カバレッジをhtmlで出力
     // "--setup-show" // どのフィクスチャがいつ実行されたか確認できる
     //"-m smoke", // -m マーカー名でマークが付いたもののみテスト
     // "-m smoke or get", // -mの後で and, or,またはnotを使用すると複数のマーカーを組み合わせられる
