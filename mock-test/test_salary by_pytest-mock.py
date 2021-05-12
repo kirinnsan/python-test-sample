@@ -1,6 +1,7 @@
 import pytest
 from unittest import mock
 import os
+import datetime
 
 import salary
 import dummy
@@ -46,7 +47,8 @@ class TestSalary():
         assert result == 900
 
     def test_path(self, mocker):
-        path_mocker = mocker.patch('os.path.join', return_value='test/sample.txt')
+        path_mocker = mocker.patch(
+            'os.path.join', return_value='test/sample.txt')
 
         ss = os.path.join('test1/test2', 'test.txt')
         print('sssssssssssssssssssssssss')
@@ -56,10 +58,32 @@ class TestSalary():
         path_mocker.assert_called()
         assert ss == 'test/sample.txt'
 
-    # def test_local_variablea(self, mocker):
-    #     with mock.patch('salary.Salary.outer') as mo:
-    #         s = salary.Salary()
-    #         mo.return_value.inner.return_value = 'bbb'
-    #         result = s.outer('aaa')
-    #         # mo.assert_called()
-    #         assert result == 'bbb'
+    def test_datetime_mock(self, mocker):
+        from datetime import datetime
+        import time
+
+        # salary.pyのdatetime.now()をモック化
+
+        # 1.unittestのmockを使用したパターン
+        # mocker.patch('salary.datetime')
+        # salary.datetime.now.return_value = datetime(2019, 1, 1, 10, 11, 20)
+        # salary.datetime.utcnow.return_value = datetime(2019, 1, 1, 1, 11, 20)
+
+        # 2.pytest-mockを使用したパターン
+        datetime_mock = mocker.patch('salary.datetime', mocker.Mock())
+        datetime_mock.now.return_value = datetime(2019, 1, 1, 10, 11, 20)
+        datetime_mock.utcnow.return_value = datetime(2019, 1, 1, 1, 11, 20)
+
+        # time.time()をモック化
+        mocker.patch('time.time', mocker.Mock(return_value=10))
+
+        s = salary.Salary()
+        datetime_now = s.now_date_time()
+        datetime_now_utc = s.now_date_time_utc()
+        time_now = s.now_time()
+        datetime_method_cain = s.datetime_method_cahin()
+
+        assert datetime_now == "name_2019-01-01 10:11:20"
+        assert datetime_now_utc == "name_2019-01-01 01:11:20"
+        assert time_now == "name_10"
+        assert datetime_method_cain == "name_2019-01-01"

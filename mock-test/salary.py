@@ -1,5 +1,6 @@
 import time
 import request
+from datetime import datetime
 
 
 class ThirdPartryBonusRestAPi:
@@ -50,6 +51,22 @@ class Salary:
 
         aa = inner(msg)
         return aa
+
+    def now_time(self):
+        name = time.time()
+        return f"name_{name}"
+
+    def now_date_time(self):
+        name = datetime.now()
+        return f"name_{name}"
+
+    def now_date_time_utc(self):
+        name = datetime.utcnow()
+        return f"name_{name}"
+
+    def datetime_method_cahin(self):
+        name = datetime.now().date().strftime('%Y-%m-%d')
+        return f"name_{name}"
 
 if __name__ == '__main__':
     s = Salary()
